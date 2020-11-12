@@ -264,8 +264,9 @@ function clearLevel(letterToDestroy, ships, centerControlPosition, scale, maxMin
     });
     
   }
-
+  
   areaMessage.sort(compare);
+  areaMessage.sort(orderByLetter);
   var messages = areaMessage.map(areaM => areaM.message).join(';');
   output.push(messages);
 
@@ -333,26 +334,38 @@ function showFinal(ships){
 }
 
 function compare(a, b) {
-  
-  const areaA = a.area;
-  const areaB = b.area;
-  const letraA = a.message[0];
-  const letraB = b.message[0];
+
+  const areaA = parseFloat(a.area);
+  const areaB = parseFloat(b.area);
 
   let comparison = 0;
   if (areaA > areaB) {
     comparison = 1;
   } else if (areaA < areaB) {
     comparison = -1;
-  }else if(areaA == areaB){
-    
+  }
+
+  return comparison;
+}
+
+function orderByLetter(a, b) {
+  
+  const areaA = parseFloat(a.area);
+  const areaB = parseFloat(b.area);
+  const letraA = a.message[0];
+  const letraB = b.message[0];
+
+  let comparison = 0;
+  if(areaA == areaB){
+
     if(letraA > letraB){
 
       comparison = 1;
     }else if(letraA < letraB){
       comparison = -1;
     }
-  }
+  } 
+    
 
   return comparison;
 }
